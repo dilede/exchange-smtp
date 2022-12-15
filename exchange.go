@@ -16,10 +16,7 @@ type Mail struct {
 }
 
 func (m *Mail) String() string {
-	formatString := "From: %s\nTo: %s\nSubject: %s\n\n%s"
-
-	result := fmt.Sprintf(formatString, m.From, strings.Join(m.To, ","), m.Subject, m.Body)
-	return result
+	return fmt.Sprintf("From: %s\nTo: %s\nSubject: %s\n\n%s", m.From, strings.Join(m.To, ","), m.Subject, m.Body)
 }
 
 // MailSender uses for send plain text emails.
@@ -39,8 +36,5 @@ func (m *MailSender) SendToList(mail Mail) error {
 		return errors.New("recipient list is empty")
 	}
 
-	var err error
-	err = smtp.SendMail(m.server, m.auth, mail.From, mail.To, []byte(mail.String()))
-
-	return err
+	return smtp.SendMail(m.server, m.auth, mail.From, mail.To, []byte(mail.String()))
 }

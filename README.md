@@ -1,3 +1,3 @@
-# Simple library for send plain emails
+# Simple library for send simple emails
 Work with Microsoft Exchange.
 It supports plaint text and html emails.

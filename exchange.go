@@ -115,6 +115,7 @@ func writeHeader(buffer *bytes.Buffer, Header map[string]string) string {
 	}
 	header += "\r\n"
 	buffer.WriteString(header)
+
 	return header
 }
 
@@ -127,6 +128,7 @@ func writeFile(buffer *bytes.Buffer, fileName string) error {
 	if err = writeBytes(buffer, file); err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -140,5 +142,6 @@ func writeBytes(buffer *bytes.Buffer, file []byte) error {
 			buffer.WriteString("\r\n")
 		}
 	}
+
 	return nil
 }

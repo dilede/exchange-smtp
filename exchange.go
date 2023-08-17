@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/base64"
 	"errors"
-	"fmt"
 	"net/smtp"
 	"os"
 	"strings"
@@ -13,7 +12,6 @@ import (
 
 // Mail is a struct of plain text email.
 type Mail struct {
-	mime        string
 	From        string
 	To          []string
 	Subject     string
@@ -33,10 +31,6 @@ type AttachmentFile struct {
 type Attachment struct {
 	File     []AttachmentFile
 	WithFile bool
-}
-
-func (m *Mail) String() string {
-	return fmt.Sprintf("%sFrom: %s\nTo: %s\nSubject: %s\n\n%s", m.mime, m.From, strings.Join(m.To, ","), m.Subject, m.Body)
 }
 
 // MailSender uses for send plain text emails.

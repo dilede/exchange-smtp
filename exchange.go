@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"log"
 	"net/smtp"
 	"os"
 	"strings"
@@ -84,12 +83,10 @@ func (m *MailSender) SendToList(mail Mail) error {
 			attachment += "Content-Transfer-Encoding:base64\r\n"
 			attachment += "Content-Disposition:attachment\r\n"
 			attachment += "Content-Type:" + file.ContentType + ";name=\"" + file.Name + "\"\r\n"
-			buffer.WriteString(attachment)
-			defer func() {
-				if err := recover(); err != nil {
-					log.Fatalln(err)
-				}
-			}()
+			_, err := buffer.WriteString(attachment)
+			if err != nil {
+				return err
+			}
 
 			if len(file.Body) > 0 {
 				if err := writeBytes(buffer, file.Body); err != nil {
